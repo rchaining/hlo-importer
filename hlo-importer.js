@@ -9,11 +9,63 @@ const color5='color: #ff0000'; //red
 var hlo,userToken;
 var hloButton=true;
 
+function getActorsWithPlayerOwners() { 
+  /*
+    Fetch all actors with ownership permissions for players other than the gamemaster
+    Output Format:
+    [ 
+      {
+      'id' : actor id,
+      'name' : actor name,
+      }
+    ]
+  */
+  const OWNER_PERMISSION = 3;
+  const GAMEMASTER_ROLE = 4;
+  let actors = [];
+  for (let actor of game.actors.entries()) {
+    for (let permissionEntry of Object.entries(actor[1].data.permission)){
+      if (permissionEntry[1]>=OWNER_PERMISSION && game.users.get(permissionEntry[0]).data.role<GAMEMASTER_ROLE){
+        actors.push({
+          id : actor[0],
+          name : actor[1].data.name
+        });
+        break; // Push the first time a non-gm owner is encountered
+      }
+    }
+  }
+  console.log("%cHLO Importer | %cSettings options will be created for "+actors.length+" actors",color1,color4);
+  return actors;
+}
+
+function buildSettingObjectForActor(actorRecords) {
+  // Individual setting obj for a single actor. Accepts array as returned by getActorsWithPlayerOwners
+  for (let record of actorRecords) {
+    let settingObj = {
+      name : record["name"]+" : "+record["id"],
+      hint : "Enter the element token for this character, or leave blank",
+      scope : 'world',
+      config : true,
+      type : String,
+      default : '',
+      onChange: function(token){
+                  if (token != ''){
+                    game.data.hlo_importer.tokensByActor[record["id"]] = token;
+                  } else {
+                    delete game.data.hlo_importer.tokensByActor[record["id"]];
+                  }
+                }
+    };
+    game.settings.register('hlo-importer', record["id"], settingObj);
+  }
+}
+
 Hooks.on('ready', async function() {
   if (game.system.id!="pf2e") {
     console.log("%cHLO Importer | %cWrong game system. %cNot enabling.",color1,color5,color4);
   } else {
     console.log("%cHLO Importer | %cinitializing",color1,color4);
+      game.data.hlo_importer = {characterTokensByActorID:{}}
       game.settings.register('hlo-importer', 'userToken', {
           name : "User Token (optional)",
           hint : "Please enter your personal user token. A user token allows external tools (like this one) to access the HLO server and perform export operations.",
@@ -23,6 +75,11 @@ Hooks.on('ready', async function() {
           default : '',
           onChange: value => (userToken=game.settings.get('hlo-importer', 'userToken'))
       });
+
+      // Individual setting, allows you to enter a different token for each actor that has a player as an owner. A bit hacky.
+      // Setting key is the actor ID, and value is the character token supplied by user
+      buildSettingObjectForActor(getActorsWithPlayerOwners());
+
       game.settings.register('hlo-importer', 'debugEnabled', {
           name : "Enable debug mode",
           hint : "Debug output will be written to the js console.",
@@ -320,4 +377,25 @@ Hooks.on('init', () => {
     hloActive: hloActive
   };
   Hooks.callAll('hloimporterReady', game.modules.get('hlo-importer').api);
+});
+
+Hooks.on('chatCommandsReady', function(chatCommands){
+    chatCommands.registerCommand(chatCommands.createCommandFromData({
+      commandKey: "/update_users",
+      invokeOnCommand: (chatlog, messageText, chatdata) => {
+        console.log("Updating all character sheets");
+        userToken = game.settings.get('hlo-importer', 'userToken');
+        let charToken
+        let validActors = game.data.actors.filter((actor)=>Object.entries(actor.permission).some( (perm)=>{return perm[0]!=game.userId&&perm[1]>2} ));
+        for (let actor of validActors) {
+          charToken = game.settings.get('hlo-importer', actor._id);
+          console.log("Updating this actor object using this token: "+charToken,actor)
+          hlo.convertHLOCharacter(actor,charToken,userToken);
+        }
+      },
+      shouldDisplayToChat: false,
+      iconClass: "fa-sticky-note",
+      description: "Update character sheets",
+      gmOnly:true
+    }));
 });
