@@ -1,5 +1,5 @@
 {
-  "name": "hlo-importer",
+  "name": "hlo-importer-branch",
   "title": "Herolab Online PF2e Import Tool",
   "description": "This module adds a button to the top of player character sheets allowing them to quickly import their character from Herolab Online.",
   "author": "slate",
@@ -7,7 +7,7 @@
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.8",
   "esmodules": [ 
-        "hlo-importer.min.js"
+        "hlo-importer.js"
     ],
   "styles": [],
   "packs": [],
