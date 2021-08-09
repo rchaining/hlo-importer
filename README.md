@@ -1,7 +1,7 @@
 [![ko-fi](https://img.shields.io/badge/-buy%20me%20a%20coffee-%23FF5E5B?style=plastic)](https://ko-fi.com/slate) [![patreon](https://img.shields.io/badge/-support%20me%20on%20patreon-%235C5C5C?style=plastic)](https://patreon.com/slatesfoundrystuff) ![GitHub release (by tag)](https://img.shields.io/github/downloads/zarmstrong/hlo-importer/hlo-importer-0.7.5/total?style=plastic) ![GitHub all releases](https://img.shields.io/github/downloads/zarmstrong/hlo-importer/total?style=plastic) ![GitHub](https://img.shields.io/github/license/zarmstrong/hlo-importer?style=plastic)
 
 # Foreword
-HUGE thanks to zarmstrong, from whom this project was forked. If you like this fork or any of his projects, consider supporting him on patreon—or at any of the other above links! For absolute clarity, all of the above links direct to funding owned by zarmstrong.
+HUGE thanks to zarmstrong, from whom this project was forked. If you like this fork or any of his projects, consider supporting him on patreon or ko-fi, linked above!
 
 This fork adds new items to the settings menu, allowing the GM to input the che character tokens for each of your player characters. One menu item will be created for each actor that has a user for an owner, and that user is NOT the Gamemaster. If you add a new actor with a player owner, refresh the page to update the settings. Find the element token for each PC in your game (described below) and insert them in the module configuration menu. To run the import, use the chat command "/update_users".
 
