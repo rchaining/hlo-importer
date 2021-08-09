@@ -1,21 +1,26 @@
 {
-  "name": "hlo-importer",
+  "name": "hlo-importer-branch",
   "title": "Herolab Online PF2e Import Tool",
-  "description": "This module adds a button to the top of player character sheets allowing them to quickly import their character from Herolab Online.",
+  "description": "This module adds a button to the top of player character sheets allowing them to quickly import their character from Herolab Online. It has been hacked to run imports over multiple players at once",
   "author": "slate",
   "version": "0.7.5",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.8",
   "esmodules": [ 
-        "hlo-importer.min.js"
+        "hlo-importer.js"
     ],
   "styles": [],
   "packs": [],
   "dependencies": [
-      { "name": "pf2e", "type": "system" }
+      { "name": "pf2e", "type": "system" },
+      {
+        "name": "_chatcommands",
+        "type": "module",
+        "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json"
+    }
   ],
   "url": "https://github.com/zarmstrong/hlo-importer",
-  "manifest": "https://raw.githubusercontent.com/zarmstrong/hlo-importer/main/module.json",
+  "manifest": "https://github.com/rchaining/hlo-importer/main/module.json",
   "download": "https://github.com/zarmstrong/hlo-importer/releases/download/hlo-importer-0.7.5/hlo-importer-0.7.5.zip",
   "license": "MIT",
   "readme": "https://github.com/zarmstrong/hlo-importer",
