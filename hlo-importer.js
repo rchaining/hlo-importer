@@ -58,6 +58,7 @@ Hooks.on('ready', async function() {
     console.log("%cHLO Importer | %cWrong game system. %cNot enabling.",color1,color5,color4);
   } else {
     console.log("%cHLO Importer | %cinitializing",color1,color4);
+      game.data.hlo_importer = {characterTokensByActorID:{}}
       game.settings.register('hlo-importer', 'userToken', {
           name : "User Token (optional)",
           hint : "Please enter your personal user token. A user token allows external tools (like this one) to access the HLO server and perform export operations.",
