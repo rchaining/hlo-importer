@@ -17,6 +17,7 @@ Caveats:
 5. Do not enable the original module and this one at the same time. I have absolutely no idea how that would behave.
 
 Currently based on version 0.7.5 of the original import tool. If you run into bugs using this module, check the current version of zarmstrong's hlo-importer. If it's ahead of 0.7.5, consider using the base importer and check if the bug persists.
+Original documentation below:
 # Herolab Online PF2e Import Tool
 
 A module for Foundry VTT that converts and imports Herolab Online 2e characters.
