@@ -1,5 +1,22 @@
 [![ko-fi](https://img.shields.io/badge/-buy%20me%20a%20coffee-%23FF5E5B?style=plastic)](https://ko-fi.com/slate) [![patreon](https://img.shields.io/badge/-support%20me%20on%20patreon-%235C5C5C?style=plastic)](https://patreon.com/slatesfoundrystuff) ![GitHub release (by tag)](https://img.shields.io/github/downloads/zarmstrong/hlo-importer/hlo-importer-0.7.5/total?style=plastic) ![GitHub all releases](https://img.shields.io/github/downloads/zarmstrong/hlo-importer/total?style=plastic) ![GitHub](https://img.shields.io/github/license/zarmstrong/hlo-importer?style=plastic)
 
+# Foreword
+HUGE thanks to zarmstrong, from whom this project was forked. If you like this fork or any of his projects, consider supporting him on patreon—or at any of the other above links!
+
+This fork adds new items to the settings menu, allowing the GM to input the che character tokens for each of your player characters. One menu item will be created for each actor that has a user for an owner, and that user is NOT the Gamemaster. If you add a new actor with a player owner, refresh the page to update the settings. Find the element token for each PC in your game (described below) and insert them in the module configuration menu. To run the import, use the chat command "/update_users".
+
+To do:
+1. Create some way to inform the GM on what the status of the import is. Including how many sheets are to be imported, which sheet that is currently being imported, and when we're finished importing.
+2. Create some way to detect if an import is being run when the user enters the /update_users command (see caveats)
+
+Caveats: 
+1. For any actors in the settings menu that you do not want to run an import on, simply leave that box blank.
+2. When running your import over multiple actors, it will wait to begin importing the next actor until you acknowledge the dialog box. This keeps the speed of requests down, as the remote tool throws errors if you run a number of overlapping imports.
+3. If you use the chat command /update_users while a previous import is running, your tool will break and possibly bork your character sheet. Do not do this.
+4. This fork adds a dependency to the Chat Commands Library. Don't know if there's any compatibility issue, be aware of that. https://foundryvtt.com/packages/_chatcommands
+5. Do not enable the original module and this one at the same time. I have absolutely no idea how that would behave.
+
+Currently based on version 0.7.5 of the original import tool. If you run into bugs using this module, check the current version of zarmstrong's hlo-importer. If it's ahead of 0.7.5, consider using the base importer and check if the bug persists.
 # Herolab Online PF2e Import Tool
 
 A module for Foundry VTT that converts and imports Herolab Online 2e characters.
